@@ -1,0 +1,47 @@
+#server.port: 7000
+#
+#spring:
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/bookstoredb?rewriteBatchedStatements=true
+#    username: root
+#    password: root
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    show-sql: true
+#    database: mysql
+#    hibernate:
+##      show_sql: true
+##      format_sql: true
+#      ddl-auto: update
+#spring.jpa.properties.hibernate.jdbc.batch_size: 1000
+#spring.jpa.properties.hibernate.order_inserts: true
+#spring.jpa.properties.hibernate.order_updates: true
+##spring.jpa.properties.hibernate.generate_statistics: true
+#
+#spring.jpa.properties.hibernate.boot.allow_jdbc_metadata_access: false
+
+
+
+
+server:
+  port: 7000
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3308/bookstoredb?rewriteBatchedStatements=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.jdbc.batch_size: 1000
+      hibernate.order_inserts: true
+      hibernate.order_updates: true
+      # Additional setting to prevent JDBC metadata access
+      hibernate.boot.allow_jdbc_metadata_access: false
+
