@@ -1,4 +1,4 @@
-package com.codesimple.bookstore.common;
+package com.codesimple.bookstore.config;
 
 import java.util.List;
 
@@ -13,7 +13,6 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.codesimple.bookstore.config.JwtInterceptor;
 import com.codesimple.bookstore.dto.RequestMeta;
 
 @Configuration

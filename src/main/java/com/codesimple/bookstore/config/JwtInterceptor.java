@@ -35,7 +35,13 @@ public class JwtInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 
-		String auth = request.getHeader("authorization");
+		//String auth = request.getHeader("authorization");
+		
+		String authorizationHeaderValue = request.getHeader("Authorization");
+		
+		if (authorizationHeaderValue != null && authorizationHeaderValue.startsWith("Bearer")) {
+			authorizationHeaderValue = authorizationHeaderValue.substring(7, authorizationHeaderValue.length());
+		}
 
 		// Skip JWT validation for login and signup endpoints
 		if (request.getRequestURI().contains("login") || request.getRequestURI().contains("signup")
@@ -47,7 +53,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 		} else {
 			try {
 				// Verify the JWT token
-				Claims claims = jwtUtils.verify(auth);
+				Claims claims = jwtUtils.verify(authorizationHeaderValue);
 
 				// Set user details in RequestMeta
 				requestMeta.setUserName(claims.get("name").toString());

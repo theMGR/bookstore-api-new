@@ -71,26 +71,32 @@ public class LoginService {
 
 		APIResponse apiResponse = new APIResponse();
 
-		// validation
+		Long usersCount = userRepository.countByEmailIdOrPhoneNumber(loginRequestDTO.getEmailId(), null);
 
-		// verify user exist with given email and password
-		User user = userRepository.findOneByEmailIdIgnoreCaseAndPassword(loginRequestDTO.getEmailId(),
-				loginRequestDTO.getPassword());
+		if (usersCount == 0) {
+			apiResponse.setData("User not registered̥");
+		} else {
 
-		// response
-		if (user == null) {
-			apiResponse.setData("User login failed");
-			return apiResponse;
+			// validation
+
+			// verify user exist with given email and password
+			User user = userRepository.findOneByEmailIdIgnoreCaseAndPassword(loginRequestDTO.getEmailId(),
+					loginRequestDTO.getPassword());
+
+			// response
+			if (user == null) {
+				apiResponse.setData("User login failed");
+			} else {
+
+				// generate jwt
+				String token = jwtUtils.generateJwt(user);
+
+				Map<String, Object> data = new HashMap<>();
+				data.put("accessToken", token);
+
+				apiResponse.setData(data);
+			}
 		}
-
-		// generate jwt
-		String token = jwtUtils.generateJwt(user);
-
-		Map<String, Object> data = new HashMap<>();
-		data.put("accessToken", token);
-
-		apiResponse.setData(data);
-
 		return apiResponse;
 	}
 
@@ -105,4 +111,5 @@ public class LoginService {
 
 		return userList;
 	}
+
 }
